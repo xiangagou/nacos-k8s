@@ -11,3 +11,4 @@ gen
 /nacos-k8s.iml
 
 .DS_Store
+/.idea/
