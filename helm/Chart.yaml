@@ -1,9 +1,9 @@
 apiVersion: v1
-appVersion: "1.0"
-description: A Helm chart for Kubernetes
+appVersion: "2.1.1"
+description: nacos-k8s
 name: nacos
 version: 0.1.5
 maintainers:
-  - name: arrowfeng
-  - name: paderlol
+  - name: GuJunxiang
+    email: 276250053@qq.com
 
