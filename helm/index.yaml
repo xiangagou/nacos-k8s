@@ -2,14 +2,15 @@ apiVersion: v1
 entries:
   nacos:
   - apiVersion: v1
-    appVersion: "2.1.0"
-    created: "2022-10-04T15:59:31.5533896+08:00"
-    description: A Helm chart for Kubernetes
-    digest: 69dfd84dee3a5ce4313260c06fb6e57be335166511a83993aca210eb582c8e34
+    appVersion: 2.1.1
+    created: "2022-10-04T17:22:06.1338151+08:00"
+    description: nacos-k8s
+    digest: 5b54b026ee8203178d4a340d56fda2673eb6307479b4c0e12c562e3dfb7c7c3a
     maintainers:
-    - name: gujunxiang
+    - email: 276250053@qq.com
+      name: GuJunxiang
     name: nacos
     urls:
     - nacos-0.1.5.tgz
     version: 0.1.5
-generated: "2022-10-04T15:59:31.5528449+08:00"
+generated: "2022-10-04T17:22:06.1327677+08:00"
