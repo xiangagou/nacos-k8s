@@ -17,9 +17,9 @@ limitations under the License.
 package v1alpha1
 
 import (
+	"encoding/json"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"nacos.io/nacos-operator/pkg/util/merge/api"
 )
 
 // EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
@@ -45,18 +45,43 @@ type NacosSpec struct {
 
 	// 自定义配置
 	// 部署模式
-	Type     string   `json:"type,omitempty"`
-	Database Database `json:"database,omitempty"`
-	Volume   Storage  `json:"volume,omitempty"`
+	Type         string   `json:"type,omitempty"`
+	FunctionMode string   `json:"function_mode,omitempty"`
+	Database     Database `json:"database,omitempty"`
+	Volume       Storage  `json:"volume,omitempty"`
 	// 配置文件
 	Config string `json:"config,omitempty"`
+	// 开启认证
+	Certification Certification `json:"certification,omitempty"`
 	// 通用k8s配置包装器
-	K8sWrapper k8sWrapper `json:"k8sWrapper,omitempty"`
+	K8sWrapper K8sWrapper `json:"k8sWrapper,omitempty"`
 }
 
-type k8sWrapper struct {
-	PodSpec api.PodSpecWrapper `json:"PodSpec,omitempty"`
+type Certification struct {
+	Enabled            bool   `json:"enabled,omitempty"`
+	Token              string `json:"token,omitempty"`
+	TokenExpireSeconds string `json:"token_expire_seconds,omitempty"`
+	CacheEnabled       bool   `json:"cache_enabled,omitempty"`
 }
+
+type K8sWrapper struct {
+	PodSpec PodSpecWrapper `json:"PodSpec,omitempty"`
+}
+
+type PodSpecWrapper struct {
+	Spec v1.PodSpec `json:"-"`
+}
+
+// MarshalJSON defers JSON encoding to the wrapped map
+func (m *PodSpecWrapper) MarshalJSON() ([]byte, error) {
+	return json.Marshal(m.Spec)
+}
+
+// UnmarshalJSON will decode the data into the wrapped map
+func (m *PodSpecWrapper) UnmarshalJSON(data []byte) error {
+	return json.Unmarshal(data, &m.Spec)
+}
+
 type Storage struct {
 	Enabled      bool            `json:"enabled,omitempty"`
 	Requests     v1.ResourceList `json:"requests,omitempty" protobuf:"bytes,2,rep,name=requests,casttype=ResourceList,castkey=ResourceName"`
